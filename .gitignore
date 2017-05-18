@@ -1,4 +1,4 @@
 *.o
-*.hex
+*.elf
 *.d
 .DS_Store
