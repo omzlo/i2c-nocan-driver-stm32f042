@@ -1,0 +1,4 @@
+*.o
+*.hex
+*.d
+.DS_Store
