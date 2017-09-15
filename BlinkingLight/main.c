@@ -12,19 +12,19 @@ int main(void)
   // Initialize GPIO clock  
   // see stm32f0xx_rcc.h
 
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB, ENABLE);
 
   // Initialize LED pins
   // see stm32f0xx_gpio.h
 
   GPIO_StructInit(&GPIO_InitStructure);
 
-  // Pin PA6
+  // Pin PB2
 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
 
   /*
 
@@ -37,14 +37,14 @@ int main(void)
     n++;
     delay();
 
-    GPIO_WriteBit(GPIOA, GPIO_Pin_6, (n&1) ? Bit_SET : Bit_RESET);
+    GPIO_WriteBit(GPIOB, GPIO_Pin_2, (n&1) ? Bit_SET : Bit_RESET);
     //GPIO_WriteBit(GPIOC, GPIO_Pin_9, (n&4) ? Bit_SET : Bit_RESET);
   }
 }
 
 void delay(void) 
 {
-  int i = 200000;/* About 1/4 second delay */
+  int i = 1600000;/* About 1/4 second delay */
   while (i-- > 0) {
     asm("nop");/* This stops it optimising code out */
   }

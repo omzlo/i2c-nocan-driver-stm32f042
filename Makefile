@@ -1,4 +1,4 @@
-SUBDIRS= BlinkingLight Demo
+SUBDIRS= BlinkingLight Omzlo-I2C-Driver
 
 .PHONY:  clean 
 

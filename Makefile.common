@@ -2,6 +2,8 @@
 
 ELF=$(notdir $(CURDIR)).elf                    
 
+BIN=$(notdir $(CURDIR)).bin
+
 # Tool path
 
 # TOOLROOT=/l/arm/arm-none-eabi/bin
@@ -21,6 +23,7 @@ CC=arm-none-eabi-gcc
 LD=arm-none-eabi-gcc
 AR=arm-none-eabi-ar
 AS=arm-none-eabi-as
+OBJCOPY=arm-none-eabi-objcopy
 
 # Code Paths
 
@@ -57,8 +60,11 @@ CFLAGS+= -DUSE_STDPERIPH_DRIVER $(FULLASSERT) -D$(PTYPE)
 
 # Build executable 
 
-$(ELF) : $(OBJS)
+$(ELF):	$(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+
+$(BIN):	$(ELF)
+	$(OBJCOPY) -O binary $< $@
 
 # compile and generate dependency info
 
@@ -71,6 +77,8 @@ $(ELF) : $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(OBJS:.o=.d) $(ELF) startup_stm32f* $(CLEANOTHER)
+
+bin:	$(BIN)
 
 debug:	$(ELF)
 	arm-none-eabi-gdb -iex "target extended-remote localhost:4242" $(ELF)
